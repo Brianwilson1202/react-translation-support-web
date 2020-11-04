@@ -1,0 +1,39 @@
+body {
+    background: #f0f0f0;
+
+}
+
+nav {
+    font-family: 'Quicksand', sans-serif;
+}
+.nav-wrapper {
+    background-color: white;
+}
+
+nav .brand-logo {
+    color: #cca8a8;
+
+}
+
+#nav-mobile {
+    background-color: #ccc2c7 !important;
+}
+
+nav .btn {
+    margin-left: 15px;
+}
+
+nav a {
+    margin-right: 5px;
+}
+
+#charge {
+    background-color: #cca8a8;
+    border-radius: 10px;
+}
+
+
+/*Landing  */
+
+
+

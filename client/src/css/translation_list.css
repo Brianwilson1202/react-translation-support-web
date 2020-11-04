@@ -1,0 +1,71 @@
+
+.collection {
+    margin: 0 ;
+    font-family: Raleway, Helvetica, sans-serif !important;
+    letter-spacing: 0.09rem
+}
+
+.img-container {
+    margin-top: 50px;
+}
+
+.img-container img {
+    max-width: 200px;
+    float: right;
+    opacity: 0.3;
+}
+
+.filter {
+    float:left
+}
+
+.card-content {
+    margin-top: 20px;
+}
+
+.answer {
+    margin-right: 10px;
+    margin-bottom: 5px;
+    text-align: right;
+}
+
+.answer span {
+    font-size: 9px;
+}
+
+.language {
+    float:right;
+    background-color: #FFFFFF;
+    height: 50px;
+    width: 100px;
+}
+
+
+
+.tag-title {
+
+        border-radius: 4px;
+        background: #ccc2c7;
+        color:#4e4e4e;
+        float: right;
+        margin: 0px 5px;
+        padding: 4px;
+    
+}
+.collection h3 {
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.due-date {
+    font-size: 9px;
+    float: right;
+    margin: 5px;
+}
+
+.preloader-wrapper{
+   margin-top: 50px;
+}
+.spinner-layer{
+    border-color:#ccc2c7;
+}
