@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import CloseIcon from '@material-ui/icons/Close';
-import {setTagsFieldData} from '../../actions';
+import CloseIcon from "@material-ui/icons/Close";
+import { setTagsFieldData } from "../../actions";
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -55,57 +55,59 @@ const StyledContainer = styled.div`
     margin-left: 10px;
   }
   .tag-content input:focus {
-    border-bottom: none!important;
+    border-bottom: none !important;
   }
 `;
 
-const NewTag = ({label, setTagsFieldData}) => {
-
+const NewTag = ({ label, setTagsFieldData }) => {
   const [selectedTags, setSelectedTags] = useState([]);
 
-  const handleTagInput = e => {
-    if (e.key === ' ' && e.target.value.length ) {
+  const handleTagInput = (e) => {
+    if (e.key === " " && e.target.value.length) {
       const selectedTag = e.target.value;
       let newItem = selectedTags;
-      setSelectedTags(prev => [...prev, selectedTag]);
+      setSelectedTags((prev) => [...prev, selectedTag]);
       e.target.value = null;
       e.preventDefault();
     }
-  }
+  };
 
   const removeTag = (indexRemove) => {
     let newItem = selectedTags;
-    newItem = newItem.filter((_,index) => index !== indexRemove )
+    newItem = newItem.filter((_, index) => index !== indexRemove);
     setSelectedTags(newItem);
-  }
+  };
 
   React.useEffect(() => {
-    setTagsFieldData( selectedTags );
-  }, [selectedTags])
+    setTagsFieldData(selectedTags);
+  }, [selectedTags]);
 
   return (
     <StyledContainer>
       <label>{label}</label>
-      <div className='tag-content'>
-        {
-          selectedTags.map((item, index) => {
-            return (
-              <div key={index} className='tag-item'>
-                <span>{item}</span>
-                <CloseIcon className='tag-delete-icon' onClick={() => removeTag(index)} />
-              </div>
-            )
-          })
-        }
-        <input type='text' placeholder='Add a tag' onKeyPress={handleTagInput} />
+      <div className="tag-content">
+        {selectedTags.map((item, index) => {
+          return (
+            <div key={index} className="tag-item">
+              <span>{item}</span>
+              <CloseIcon
+                className="tag-delete-icon"
+                onClick={() => removeTag(index)}
+              />
+            </div>
+          );
+        })}
+        <input
+          type="text"
+          placeholder="Add a tag"
+          onKeyPress={handleTagInput}
+        />
       </div>
       <p>Please add at least 2 categories</p>
     </StyledContainer>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({});
 
-})
-
-export default connect(mapStateToProps, {setTagsFieldData})(NewTag)
+export default connect(mapStateToProps, { setTagsFieldData })(NewTag);

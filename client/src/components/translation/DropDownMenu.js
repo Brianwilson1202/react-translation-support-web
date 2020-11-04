@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import ComputerIcon from '@material-ui/icons/Computer';
-import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import AvTimerOutlinedIcon from '@material-ui/icons/AvTimerOutlined';
-import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
-import CloseIcon from '@material-ui/icons/Close';
+import ComputerIcon from "@material-ui/icons/Computer";
+import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+import AvTimerOutlinedIcon from "@material-ui/icons/AvTimerOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import CloseIcon from "@material-ui/icons/Close";
 
-import {setTempFieldData} from '../../actions';
-
+import { setTempFieldData } from "../../actions";
 
 const StyledContainer = styled.div`
   width: 97%;
@@ -19,7 +18,8 @@ const StyledContainer = styled.div`
   background: #fff;
   margin: 30px auto;
   // justify-content: space-evenly;
-  .drop-content-item, .drop-content-edit {
+  .drop-content-item,
+  .drop-content-edit {
     position: relative;
     display: flex;
     align-items: center;
@@ -53,77 +53,79 @@ const StyledContainer = styled.div`
     right: 5px;
     font-size: 18px;
   }
-
 `;
 
 const dropContentItems = [
   {
     icon: <ComputerIcon />,
-    title: 'Web development'
+    title: "Web development",
   },
   {
     icon: <PhoneIphoneIcon />,
-    title: 'Mobile development'
+    title: "Mobile development",
   },
   {
     icon: <SettingsOutlinedIcon />,
-    title: 'Desktop app'
+    title: "Desktop app",
   },
   {
     icon: <AvTimerOutlinedIcon />,
-    title: 'DevOps'
+    title: "DevOps",
   },
-]
+];
 
 const DropDownMenu = ({ setTempFieldData }) => {
   const [selectedItem, setSelectedItem] = useState([]);
-  const [itemRemove, setItemRemove] = useState(false)
+  const [itemRemove, setItemRemove] = useState(false);
 
   const handleSelectItem = (item) => {
-    setSelectedItem(prev => [...prev, item]);
-  }
+    setSelectedItem((prev) => [...prev, item]);
+  };
   const handleRemoveItem = (removeItem) => {
     let newItem = selectedItem;
-    newItem = newItem.filter(item => item !== removeItem);
+    newItem = newItem.filter((item) => item !== removeItem);
     setSelectedItem(newItem);
-  }
+  };
   useEffect(() => {
     setTempFieldData(selectedItem);
-  }, [selectedItem])
-  
+  }, [selectedItem]);
+
   return (
     <StyledContainer>
-      {
-        dropContentItems.map((item, index) => {
-          return (
-            <div key={index} 
-              className={
-                selectedItem.join(' ').includes(item.title) ? 
-                'drop-content-item active' : 
-                'drop-content-item'}
-              onClick={() => {handleSelectItem(item.title)}}
-            >
-              {item.icon}
-              <span>{item.title}</span>
-              {
-                itemRemove &&
-                <CloseIcon className='drop-content-item-remove' onClick={() => {handleRemoveItem(item.title)}}/>
-              }
-            </div>
-          )
-        })
-      }
-      <div className='drop-content-edit'>
+      {dropContentItems.map((item, index) => {
+        return (
+          <div
+            key={index}
+            className={
+              selectedItem.join(" ").includes(item.title)
+                ? "drop-content-item active"
+                : "drop-content-item"
+            }
+            onClick={() => {
+              handleSelectItem(item.title);
+            }}
+          >
+            {item.icon}
+            <span>{item.title}</span>
+            {itemRemove && (
+              <CloseIcon
+                className="drop-content-item-remove"
+                onClick={() => {
+                  handleRemoveItem(item.title);
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
+      <div className="drop-content-edit">
         <CreateOutlinedIcon />
         <span>Add Others</span>
       </div>
     </StyledContainer>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => ({
-  
-})
+const mapStateToProps = (state) => ({});
 
-
-export default connect(mapStateToProps, {setTempFieldData})(DropDownMenu)
+export default connect(mapStateToProps, { setTempFieldData })(DropDownMenu);

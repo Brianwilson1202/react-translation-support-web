@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import CloseIcon from '@material-ui/icons/Close';
-import {setLanguageFieldData} from '../../actions';
+import CloseIcon from "@material-ui/icons/Close";
+import { setLanguageFieldData } from "../../actions";
 
 const StyledContainer = styled.div`
   background: #fff;
@@ -71,7 +71,7 @@ const StyledContainer = styled.div`
   .language-drop-item-bar {
     margin-top: 20px;
   }
-  
+
   .language-drop-down-bar::-webkit-scrollbar {
     width: 8px;
   }
@@ -83,45 +83,41 @@ const StyledContainer = styled.div`
   .language-drop-down-bar::-webkit-scrollbar-thumb {
     background-color: #ccc2c7;
     border-radius: 0px;
-}
-
+  }
 `;
 
-const languages = [
-  'English', 'Korean', 'Japanese', 'French', 'Spanish'
-]
+const languages = ["English", "Korean", "Japanese", "French", "Spanish"];
 
-const LanguageDrop = ({label, setLanguageFieldData}) => {
-  
+const LanguageDrop = ({ label, setLanguageFieldData }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchRedults, setSearchRedults] = useState([]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
     setSearchTerm(e.target.value);
     setSelectedLanguage(e.target.value);
-  }
+  };
 
   const handleAddLanguage = () => {
-    setSelectedLanguages(prev => [...prev, selectedLanguage]);
+    setSelectedLanguages((prev) => [...prev, selectedLanguage]);
     setSelectedLanguage();
-  }
+  };
 
   const handleSelectLanguage = (language) => {
     setSelectedLanguage(language);
-  }
+  };
 
   const handleRemoveLanguage = (removeIndex) => {
     let newItem = selectedLanguages;
-    newItem = newItem.filter((_,index) => index !== removeIndex )
+    newItem = newItem.filter((_, index) => index !== removeIndex);
     setSelectedLanguages(newItem);
-  }
+  };
 
   useEffect(() => {
     if (searchTerm) {
-      const results = languages.filter(language =>
+      const results = languages.filter((language) =>
         language.toLowerCase().includes(searchTerm)
       );
       setSearchRedults(results);
@@ -129,51 +125,62 @@ const LanguageDrop = ({label, setLanguageFieldData}) => {
       setSearchRedults([]);
     }
     setLanguageFieldData(selectedLanguages);
-  }, [searchTerm, selectedLanguages])
+  }, [searchTerm, selectedLanguages]);
 
   return (
-    <div className='col s6'>
+    <div className="col s6">
       <label>{label}</label>
       <br />
       <StyledContainer>
-        <div className='language-drop-input-bar'>
-          <input type='text' placeholder='Language' value={selectedLanguage} onChange={handleInputChange} />
-          <div className='language-drop-add-btn' onClick={handleAddLanguage}>+</div>
+        <div className="language-drop-input-bar">
+          <input
+            type="text"
+            placeholder="Language"
+            value={selectedLanguage}
+            onChange={handleInputChange}
+          />
+          <div className="language-drop-add-btn" onClick={handleAddLanguage}>
+            +
+          </div>
         </div>
-        {
-          (searchRedults.length > 0) &&
-          <div className='language-drop-down-bar'>
-            {
-              searchRedults.map((language, index) => {
-                return (
-                  <div className='language-drop-down-item' key={index} onClick={() => handleSelectLanguage(language)}>
-                    {language}
+        {searchRedults.length > 0 && (
+          <div className="language-drop-down-bar">
+            {searchRedults.map((language, index) => {
+              return (
+                <div
+                  className="language-drop-down-item"
+                  key={index}
+                  onClick={() => handleSelectLanguage(language)}
+                >
+                  {language}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        <div className="language-drop-item-bar">
+          {selectedLanguages &&
+            selectedLanguages.map((language, index) => {
+              return (
+                language && (
+                  <div className="language-drop-item" key={index}>
+                    <span>{language}</span>
+                    <CloseIcon
+                      className="language-drop-item-delete-icon"
+                      onClick={() => {
+                        handleRemoveLanguage(index);
+                      }}
+                    />
                   </div>
                 )
-              })
-            }
-          </div>
-        }
-        <div className='language-drop-item-bar'>
-          {
-            selectedLanguages && selectedLanguages.map((language, index) => {
-              return (
-                language &&
-                <div className='language-drop-item' key={index}>
-                  <span>{language}</span>
-                  <CloseIcon className='language-drop-item-delete-icon' onClick={() => {handleRemoveLanguage(index)}} />
-                </div>
-              )
-            })
-          }
+              );
+            })}
         </div>
       </StyledContainer>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({});
 
-})
-
-export default connect(mapStateToProps, {setLanguageFieldData})(LanguageDrop)
+export default connect(mapStateToProps, { setLanguageFieldData })(LanguageDrop);
